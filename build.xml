@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<project name="upay-activity" xmlns:jacoco="antlib:org.jacoco.ant" default="jacoco">
+    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+        <classpath path="./jacoco/lib/jacocoant.jar" />
+    </taskdef>
+
+    <target name="dump">
+        <jacoco:dump address="t1-hongbao-001" port="7766" reset="false" destfile="upay-activity_test.exec" append="true"/>
+
+    </target>
+    <target name="merge">
+        <jacoco:merge destfile="./jacoco-all.exec">
+        <fileset dir="./" includes="*.exec"/>
+        </jacoco:merge>
+    </target>
+</project>
