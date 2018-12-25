@@ -87,6 +87,3 @@ sh /app/jacoco/backup.sh upay-activity t1-hongbao-001 7766
 <!--![](http://pic.test7.hemayun.net/jacoco-jenkins-2.png)
 -->
 ![](http://pic.test7.hemayun.net/jacoco-jenkins-3.png)
-
-在这里你会看到更加详细的数据 [refer to jenkins](https://jenkins-test.wosai-inc.com/job/qa-jacoco-report/)
-
