@@ -11,6 +11,6 @@ public class Calculator {
             // 很明显这是一个bug
             return 0;
         }
-        return a - b;
+        return a / b;
     }
 }
