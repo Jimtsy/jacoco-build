@@ -54,30 +54,39 @@ services:
 EOF
 ```
 
+### 在deploy之前需要备份当前状态下的代码覆盖率数据
+
+```
+sh /app/jacoco/backup.sh upay-activity t1-hongbao-001 7766
+
+```
+
+接收三个参数：
+
+- 项目名称： 请务必与gitlab上的目录名称一致，例如：`upay-activity` 而不是 `upay-activity-mock` 或者 `upay-activity_test`
+- host: 保持于测试服务器地址一致即可
+- port: 配置的agent端口
+
+添加该备份后，可不断的构建项目，代码覆盖率数据不会丢失。
+例如：第一天测试完成50%的用例，第二天更新的service完成剩余的50%用例，此时代码覆盖率包含了这两天的执行结果
+
 ## 覆盖率报告获取
 
-### configuration
+### 添加构建项目
+![](http://pic.test7.hemayun.net/jacoco-jenkins-0.png)
 
-```
-cd $BUILD_PROJECT
-SERVICE=${BUILD_PROJECT##*/}
+如上图，换行填写你在gitlab上的目录文件地址，例如: `market/upay-activity`
 
-# 更新源码文件 includes. *.java, *.class
-cp -r /app/jenkins/data/workspace/${SERVICE}_test $SERVICE
-cp -r /app/jacoco/jacoco-0 jacoco
+### 点击 "Build with Parameters"
+![](http://pic.test7.hemayun.net/jacoco-jenkins-1.png)
 
-# 从远程服务获取exec文件
-ant dump
-ant merge
+- 选择需要构建的项目
+- 选择是否需要重新设置覆盖率数据
 
-# 更新tmp目录，存放最新的结果
-cp -r ./$SERVICE tmp
-cp jacoco-all.exec tmp/
-rm *.exec
+### 覆盖率报告
+<!--![](http://pic.test7.hemayun.net/jacoco-jenkins-2.png)
+-->
+![](http://pic.test7.hemayun.net/jacoco-jenkins-3.png)
 
-ls -alt $SERVICE
-ls -alrt tmp
-```
-
-[refer to jenkins configuration](https://jenkins-test.wosai-inc.com/job/qa-jacoco/)
+在这里你会看到更加详细的数据 [refer to jenkins](https://jenkins-test.wosai-inc.com/job/qa-jacoco-report/)
 
